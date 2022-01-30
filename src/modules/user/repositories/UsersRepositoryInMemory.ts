@@ -11,7 +11,6 @@ export class UsersRespositoryInMemory implements IUsersRepository {
       user.username = username
       user.password = password
 
-      this.users.push(user)
       return user
     }
 
@@ -29,5 +28,11 @@ export class UsersRespositoryInMemory implements IUsersRepository {
       const userExists = this.users.some((user) => user.username === username) && this.users.some((user) => user.email === email)
 
       return userExists
+    }
+
+    async findOne (id: string): Promise<User> {
+      const user = this.users.find(user => user.id === id)
+
+      return user
     }
 }
