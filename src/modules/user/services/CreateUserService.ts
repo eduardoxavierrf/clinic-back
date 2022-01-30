@@ -10,23 +10,23 @@ interface IUserRequest {
 }
 
 export default class CreateUserService {
-  constructor (private usersRepository: IUsersRepository) {
-    this.usersRepository = usersRepository
-  }
-
-  async execute ({ email, username, password }: IUserRequest): Promise<User> {
-    const userExists = await this.usersRepository.exists(username, email)
-
-    if (userExists) {
-      throw new AppError('User already exists')
+    constructor(private usersRepository: IUsersRepository) {
+        this.usersRepository = usersRepository
     }
 
-    password = await hash(password, 11)
+    async execute({ email, username, password }: IUserRequest): Promise<User> {
+        const userExists = await this.usersRepository.exists(username, email)
 
-    const user = this.usersRepository.create({ email, username, password })
+        if (userExists) {
+            throw new AppError('User already exists')
+        }
 
-    await this.usersRepository.save(user)
+        password = await hash(password, 11)
 
-    return user
-  }
+        const user = this.usersRepository.create({ email, username, password })
+
+        await this.usersRepository.save(user)
+
+        return user
+    }
 }

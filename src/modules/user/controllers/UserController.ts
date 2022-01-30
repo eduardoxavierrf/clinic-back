@@ -4,16 +4,23 @@ import { UserRepository } from '../repositories/UserRepository'
 import CreateUserService from '../services/CreateUserService'
 
 export default class UserController {
-  public async create (request: Request, response: Response): Promise<Response> {
-    const { email, username, password } = request.body
+    public async create(
+        request: Request,
+        response: Response
+    ): Promise<Response> {
+        const { email, username, password } = request.body
 
-    const usersRepository = getCustomRepository(UserRepository)
-    const createUserService = new CreateUserService(usersRepository)
+        const usersRepository = getCustomRepository(UserRepository)
+        const createUserService = new CreateUserService(usersRepository)
 
-    const user = await createUserService.execute({ email, username, password })
+        const user = await createUserService.execute({
+            email,
+            username,
+            password,
+        })
 
-    delete user.password
+        delete user.password
 
-    return response.status(201).json(user)
-  }
+        return response.status(201).json(user)
+    }
 }

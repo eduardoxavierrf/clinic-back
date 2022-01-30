@@ -13,18 +13,18 @@ const app = express()
 app.use(express.json())
 app.use(router)
 app.use(
-  (err: Error, request: Request, response: Response, next: NextFunction) => {
-    if (err instanceof AppError) {
-      return response.status(err.status).json({
-        message: err.message
-      })
+    (err: Error, request: Request, response: Response, next: NextFunction) => {
+        if (err instanceof AppError) {
+            return response.status(err.status).json({
+                message: err.message,
+            })
+        }
+        return response.status(500).json({
+            message: 'Internal server error',
+        })
     }
-    return response.status(500).json({
-      message: 'Internal server error'
-    })
-  }
 )
 
 app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`)
+    console.log(`Server started on port ${PORT}`)
 })
