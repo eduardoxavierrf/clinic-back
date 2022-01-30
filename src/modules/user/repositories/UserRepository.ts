@@ -17,4 +17,26 @@ export class UserRepository
 
         return false
     }
+
+    async findOneByEmail(
+        email: string,
+        selectPassword = false
+    ): Promise<User | undefined> {
+        const user = await this.findOne({
+            where: {
+                email,
+            },
+            select: selectPassword
+                ? [
+                      'id',
+                      'email',
+                      'username',
+                      'password',
+                      'createdAt',
+                      'updatedAt',
+                  ]
+                : ['id', 'email', 'username', 'createdAt', 'updatedAt'],
+        })
+        return user
+    }
 }

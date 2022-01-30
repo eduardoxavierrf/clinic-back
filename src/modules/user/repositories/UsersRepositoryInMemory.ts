@@ -32,8 +32,17 @@ export class UsersRespositoryInMemory implements IUsersRepository {
         return userExists
     }
 
-    async findOne(id: string): Promise<User> {
+    async findOne(id: string): Promise<User | undefined> {
         const user = this.users.find((user) => user.id === id)
+
+        return user
+    }
+
+    async findOneByEmail(
+        email: string,
+        selectPassword: boolean
+    ): Promise<User | undefined> {
+        const user = this.users.find((user) => user.email === email)
 
         return user
     }

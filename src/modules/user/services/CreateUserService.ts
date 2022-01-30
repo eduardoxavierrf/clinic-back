@@ -1,7 +1,7 @@
 import AppError from '../../../shared/error/AppError'
 import { User } from '../entities/user'
 import { IUsersRepository } from '../repositories/IUsersRepository'
-import { hash } from 'bcrypt'
+import { hash } from 'bcryptjs'
 
 interface IUserRequest {
     email: string
@@ -21,9 +21,11 @@ export default class CreateUserService {
             throw new AppError('User already exists')
         }
 
-        password = await hash(password, 11)
-
-        const user = this.usersRepository.create({ email, username, password })
+        const user = this.usersRepository.create({
+            email,
+            username,
+            password: await hash(password, 10),
+        })
 
         await this.usersRepository.save(user)
 
