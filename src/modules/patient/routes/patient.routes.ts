@@ -5,5 +5,6 @@ const patientRouter = Router()
 const patientController = new PatientController()
 
 patientRouter.post('/', patientController.create)
+patientRouter.get('/', patientController.index)
 
 export default patientRouter

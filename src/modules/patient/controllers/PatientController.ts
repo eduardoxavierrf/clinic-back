@@ -22,4 +22,15 @@ export default class PatientController {
 
         return response.status(201).json(patient)
     }
+
+    public async index(
+        request: Request,
+        response: Response
+    ): Promise<Response> {
+        const patientRepository = getRepository(Patient)
+
+        const patients = await patientRepository.find()
+
+        return response.status(200).json(patients)
+    }
 }
