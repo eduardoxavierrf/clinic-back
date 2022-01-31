@@ -6,5 +6,6 @@ const patientController = new PatientController()
 
 patientRouter.post('/', patientController.create)
 patientRouter.get('/', patientController.index)
+patientRouter.patch('/:id', patientController.edit)
 
 export default patientRouter
