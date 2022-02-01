@@ -52,4 +52,17 @@ export default class PatientController {
 
         return response.status(200).json(patient)
     }
+
+    public async delete(
+        request: Request,
+        response: Response
+    ): Promise<Response> {
+        const { id } = request.params
+
+        const patientRepository = getRepository(Patient)
+
+        await patientRepository.delete({ id })
+
+        return response.status(204).json()
+    }
 }

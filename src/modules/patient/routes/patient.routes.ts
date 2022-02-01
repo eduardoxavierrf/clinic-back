@@ -7,5 +7,6 @@ const patientController = new PatientController()
 patientRouter.post('/', patientController.create)
 patientRouter.get('/', patientController.index)
 patientRouter.patch('/:id', patientController.edit)
+patientRouter.delete('/:id', patientController.delete)
 
 export default patientRouter
